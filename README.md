@@ -183,3 +183,5 @@ We render the component and pass in the `task` into the `prop` in the component 
 ```typescript
 <TaskItem key={task.id} task={task} />
 ```
+
+## Adding State
