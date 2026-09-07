@@ -8,10 +8,21 @@ type Task = {
 
 type TaskItemProps = {
     task: Task;
+    toggleTask: (id: number) => void;
 };
 
-function TaskItem({ task }: TaskItemProps) {
-    return <li>{task.title}</li>
+function TaskItem({ task, toggleTask }: TaskItemProps) {
+    return (
+        <li>
+            <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => toggleTask(task.id)}
+            />
+
+            {task.title} - {task.completed ? "Completed" : "Not completed"}
+        </li>
+    )
 }
 
 export default TaskItem;

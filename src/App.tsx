@@ -30,6 +30,17 @@ function App() {
     setNewTaskTitle("");
   }
 
+  function toggleTask(id: number) {
+    setTasks(
+      // Loop through every task, find a matching task, copy it and change completed from false/true or true/false
+      tasks.map((task) =>
+        task.id === id
+          ? { ...task, completed: !task.completed }
+          : task
+      )
+    );
+  }
+
   return (
     <main>
       <form onSubmit={addTask}>
@@ -38,12 +49,16 @@ function App() {
           value={newTaskTitle}
           onChange={(event) => setNewTaskTitle(event.target.value)}
         />
-        <button onClick={addTask}>Add task</button>
+        <button type="submit">Add task</button>
       </form>
 
       <ul>
         {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} />
+          <TaskItem 
+            key={task.id} 
+            task={task} 
+            toggleTask={toggleTask} 
+          />
         ))}
       </ul>
     </main>
