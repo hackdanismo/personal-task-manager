@@ -62,6 +62,16 @@ function App() {
     );
   }
 
+  function editTask(id: number, newTitle: string) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id
+          ? { ...task, title: newTitle }
+          : task
+      )
+    );
+  }
+
   function deleteTask(id: number) {
     // Creates a new array containing every task except the one whose id matches the task we want to delete
     setTasks(tasks.filter((task) => task.id !== id));
@@ -85,6 +95,7 @@ function App() {
             task={task} 
             toggleTask={toggleTask} 
             deleteTask={deleteTask}
+            editTask={editTask}
           />
         ))}
       </ul>
