@@ -298,3 +298,96 @@ function App() {
 
 export default App
 ```
+
+### Update the Button
+The button needs to have a function to enable a task to be added to the task list. Begin by updating the button with `onClick` to call a function named: `addTask`:
+
+```html
+<button onClick={addTask}>Add task</button>
+```
+
+Add the `addTask` function that will be used to update the app with a new task.
+
+```typescript
+function addTask(event: React.FormEvent<HTMLFormElement>) {
+    // Prevent default form submission
+    event.preventDefault();
+    // Do nothing if the task input field is empty to avoid adding empty tasks
+    if (!newTaskTitle.trim()) return;
+
+    const newTask: Task = {
+        id: Date.now(),
+        title: newTaskTitle,
+        completed: false,
+    };
+
+    // Update state with the new task
+    setTasks([...tasks, newTask]);
+    // Clear the input field state once task has been added
+    setNewTaskTitle("");
+}
+```
+
+Wrapping the `input` and `button` in a `<form>` element will also allow `Enter` to be pressed to add a task. Using the form's `onSubmit` event will prevent the browser's default form submission.
+
+```typescript
+<form onSubmit={addTask}> ... </form>
+```
+
+The full updated code:
+
+```typescript
+// src/App.tsx
+
+// Add the useState hook
+import { useState } from "react";
+// Import the component
+import TaskItem from "./components/TaskItem";
+
+function App() {
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [tasks, setTasks] = useState<Task[]>([
+    { id: 1, title: "Learn React components", completed: false },
+    { id: 2, title: "Build task manager", completed: false },
+  ]);
+
+  function addTask(event: React.FormEvent<HTMLFormElement>) {
+    // Prevent default form submission
+    event.preventDefault();
+    // Do nothing if the task input field is empty to avoid adding empty tasks
+    if (!newTaskTitle.trim()) return;
+
+    const newTask: Task = {
+      id: Date.now(),
+      title: newTaskTitle,
+      completed: false,
+    };
+
+    // Update state with the new task
+    setTasks([...tasks, newTask]);
+    // Clear the input field state once task has been added
+    setNewTaskTitle("");
+  }
+
+  return (
+    <main>
+      <form onSubmit={addTask}>
+        <input
+          type="text"
+          value={newTaskTitle}
+          onChange={(event) => setNewTaskTitle(event.target.value)}
+        />
+        <button onClick={addTask}>Add task</button>
+      </form>
+
+      <ul>
+        {tasks.map((task) => (
+          <TaskItem key={task.id} task={task} />
+        ))}
+      </ul>
+    </main>
+  )
+}
+
+export default App
+```
