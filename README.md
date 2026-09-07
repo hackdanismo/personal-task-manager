@@ -240,3 +240,61 @@ function App() {
 
 export default App
 ```
+
+## Add Tasks
+A task list is useful if we're able to add and remove tasks. For this, we need an input field that will allow a user to enter a task to be added. Begin by creating the input element within the `src/App.tsx` file.
+
+A button element is added alongside to submit a task.
+
+```html
+<input
+    type="text"
+    value={newTaskTitle}
+    onChange={(event) => setNewTaskTitle(event.target.value)}
+/>
+<button>Add task</button>
+```
+
+A second part of the state needs to also be added. This is for the `controlled inputs` to store the value of the text being typed into the input field.
+
+```typescript
+const [newTaskTitle, setNewTaskTitle] = useState("");
+```
+
+At this point, typing into the input updates the `newTaskTitle` in state. The button will not work currently.
+
+```typescript
+// src/App.tsx
+
+// Add the useState hook
+import { useState } from "react";
+// Import the component
+import TaskItem from "./components/TaskItem";
+
+function App() {
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [tasks, setTasks] = useState<Task[]>([
+    { id: 1, title: "Learn React components", completed: false },
+    { id: 2, title: "Build task manager", completed: false },
+  ]);
+
+  return (
+    <main>
+      <input
+        type="text"
+        value={newTaskTitle}
+        onChange={(event) => setNewTaskTitle(event.target.value)}
+      />
+      <button>Add task</button>
+
+      <ul>
+        {tasks.map((task) => (
+          <TaskItem key={task.id} task={task} />
+        ))}
+      </ul>
+    </main>
+  )
+}
+
+export default App
+```
