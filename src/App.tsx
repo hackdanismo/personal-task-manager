@@ -41,6 +41,11 @@ function App() {
     );
   }
 
+  function deleteTask(id: number) {
+    // Creates a new array containing every task except the one whose id matches the task we want to delete
+    setTasks(tasks.filter((task) => task.id !== id));
+  }
+
   return (
     <main>
       <form onSubmit={addTask}>
@@ -58,6 +63,7 @@ function App() {
             key={task.id} 
             task={task} 
             toggleTask={toggleTask} 
+            deleteTask={deleteTask}
           />
         ))}
       </ul>

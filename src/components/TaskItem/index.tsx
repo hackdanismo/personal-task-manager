@@ -9,9 +9,10 @@ type Task = {
 type TaskItemProps = {
     task: Task;
     toggleTask: (id: number) => void;
+    deleteTask: (id: number) => void;
 };
 
-function TaskItem({ task, toggleTask }: TaskItemProps) {
+function TaskItem({ task, toggleTask, deleteTask }: TaskItemProps) {
     return (
         <li>
             <input
@@ -21,6 +22,8 @@ function TaskItem({ task, toggleTask }: TaskItemProps) {
             />
 
             {task.title} - {task.completed ? "Completed" : "Not completed"}
+
+            <button onClick={() => deleteTask(task.id)}>Delete</button>
         </li>
     )
 }
