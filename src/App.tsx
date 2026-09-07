@@ -1,13 +1,15 @@
 // src/App.tsx
 
+// Add the useState hook
+import { useState } from "react";
 // Import the component
 import TaskItem from "./components/TaskItem";
 
 function App() {
-  const tasks = [
+  const [tasks, setTasks] = useState<Task[]>([
     { id: 1, title: "Learn React components", completed: false },
     { id: 2, title: "Build task manager", completed: false },
-  ];
+  ]);
 
   return (
     <main>

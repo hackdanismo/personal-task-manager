@@ -185,3 +185,58 @@ We render the component and pass in the `task` into the `prop` in the component 
 ```
 
 ## Adding State
+The list can now be updated with the `useState` hook. This will allow the task list to be `stateful`. Currently the `tasks` array is fixed. Using `useState` will allow React to remember and update the list so tasks can be added and removed.
+
+The `tasks` is the current array of tasks, `setTasks` will be the function we will use to change it.
+
+Update the `src/App.tsx` file to include `useState`.
+
+```typescript
+import { useState } from "react";
+```
+
+This line of code sets the `state`:
+
+```typescript
+const [tasks, setTasks] = useState<Task[]>(...)
+```
+
++ `useState(...)` is a React hook. It lets the component remember a value between renders.
++ `tasks` is the current value. In this case, it will be an array of tasks.
++ `setTasks` is the function used to replace the value with a new one.
+
+The `<Task[]>` is `TypeScript`, just meaing `Task[]` as an array of the `Task` object.
+
+This now means that our `tasks` array is now stored in React state. React will keep track of the array and when we call the function: `setTasks(...)`, React will update the state and re-render the component so the UI reflects the new tasks.
+
+This is only in-memory state, so if we refresh the browser, the tasks will reset to the default. This is unless we save the changes somewhere persistent like `localStorage` or a `database`.
+
+Here's the full updated `src/App.tsx` file:
+
+```typescript
+// src/App.tsx
+
+// Add the useState hook
+import { useState } from "react";
+// Import the component
+import TaskItem from "./components/TaskItem";
+
+function App() {
+  const [tasks, setTasks] = useState<Task[]>([
+    { id: 1, title: "Learn React components", completed: false },
+    { id: 2, title: "Build task manager", completed: false },
+  ]);
+
+  return (
+    <main>
+      <ul>
+        {tasks.map((task) => (
+          <TaskItem key={task.id} task={task} />
+        ))}
+      </ul>
+    </main>
+  )
+}
+
+export default App
+```
