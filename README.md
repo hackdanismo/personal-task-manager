@@ -55,3 +55,33 @@ The local development server will run and the application can be viewed here: `h
 <img width="1616" height="919" alt="The React application running locally." src="https://github.com/user-attachments/assets/b64b8672-246f-458b-8bd5-f86d0ff7ab48" />
 
 ## Clean Install
+Once `React` has been installed and setup, remove the boileplate code. Within the `src/App.tsx` file remove all code to leave:
+
+```typescript
+// src/App.tsx
+
+function App() {
+  return (
+    <>
+      <h1>Hello, World</h1>
+    </>
+  )
+}
+
+export default App
+```
+
+In the `src/main.tsx` file, update the code to remove the `index.css` reference:
+
+```typescript
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App.tsx'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+```
+
