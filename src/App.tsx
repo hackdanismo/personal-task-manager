@@ -1,16 +1,37 @@
 // src/App.tsx
 
-// Add the useState hook
-import { useState } from "react";
+// Add the useEffect and useState hooks
+import { useEffect, useState } from "react";
 // Import the component
 import TaskItem from "./components/TaskItem";
 
 function App() {
   const [newTaskTitle, setNewTaskTitle] = useState("");
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: 1, title: "Learn React components", completed: false },
-    { id: 2, title: "Build task manager", completed: false },
-  ]);
+  // Initial state to allow react to load the saved tasks first
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    // Get items from localStorage, retrieve the string
+    const savedTasks = localStorage.getItem("tasks");
+
+    return savedTasks
+      ? JSON.parse(savedTasks)  // Convert the string into an array
+      : [
+        { id: 1, title: "Learn React components", completed: false },
+        { id: 2, title: "Build task manager", completed: false },
+      ];
+  });
+
+  // Add useEffect below where we declare state
+  useEffect(() => {
+    /*
+     * Whenever tasks change, save the latest array into the browser's localStorage.
+     * JSON.stringify(tasks) converts the array from JavaScript data into a text string.
+     * localStorage can only store strings.
+     * The string is stored under the key "tasks". 
+     * This can be retrieved using: localStorage.getItem("tasks"). 
+     * The string can then be converted back into an array with: JSON.parse(...)
+     */
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   function addTask(event: React.FormEvent<HTMLFormElement>) {
     // Prevent default form submission
