@@ -1,3 +1,8 @@
+// src/App.tsx
+
+// Import the component
+import TaskItem from "./components/TaskItem";
+
 function App() {
   const tasks = [
     { id: 1, title: "Learn React components", completed: false },
@@ -8,7 +13,7 @@ function App() {
     <main>
       <ul>
         {tasks.map((task) => (
-          <li key={task.id}>{task.title}</li>
+          <TaskItem key={task.id} task={task} />
         ))}
       </ul>
     </main>

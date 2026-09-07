@@ -118,3 +118,68 @@ export default App
 + `<li key={task.id}>` creats one list item for each task.
 + `key={task.id}` gives React a unique identifier for each list item.
 + `{task.title}` displays the task's title.
+
+## Components
+Components are reusable pieces of React UI. A component is usually a function that returns JSX. Within our React application, add a `components/` folder into the `src/` directory.
+
+Once done, add a file named `TaskItem.tsx`. This is a component to render each task and is written in `TypeScript` so props have data types using the `type` object. 
+
+```typescript
+// src/components/TaskItem/index.tsx
+
+type Task = {
+    id: number;
+    title: string;
+    completed: boolean;
+};
+
+type TaskItemProps = {
+    task: Task;
+};
+
+function TaskItem({ task }: TaskItemProps) {
+    return <li>{task.title}</li>
+}
+
+export default TaskItem;
+```
+
+Within the `App.tsx` file, import this component as the first line:
+
+```typescript
+import TaskItem from "./components/TaskItem";
+```
+
+Then, update the `App` component to render the `TaskItem` component:
+
+```typescript
+// src/App.tsx
+
+// Import the component
+import TaskItem from "./components/TaskItem";
+
+function App() {
+  const tasks = [
+    { id: 1, title: "Learn React components", completed: false },
+    { id: 2, title: "Build task manager", completed: false },
+  ];
+
+  return (
+    <main>
+      <ul>
+        {tasks.map((task) => (
+          <TaskItem key={task.id} task={task} />
+        ))}
+      </ul>
+    </main>
+  )
+}
+
+export default App
+```
+
+We render the component and pass in the `task` into the `prop` in the component itself:
+
+```typescript
+<TaskItem key={task.id} task={task} />
+```
