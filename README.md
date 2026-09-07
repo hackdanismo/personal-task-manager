@@ -74,6 +74,8 @@ export default App
 In the `src/main.tsx` file, update the code to remove the `index.css` reference:
 
 ```typescript
+// src/main.tsx
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
@@ -85,3 +87,34 @@ createRoot(document.getElementById('root')!).render(
 )
 ```
 
+## Initial List
+The initial list is a hard-coded array named `tasks` containing two tasks. Each item in the array is an `object`. A `map()` is then used to loop over the array and render the tasks onto the page. This change was made in the `src/App.tsx` file:
+
+```typescript
+// src/App.tsx
+
+function App() {
+  const tasks = [
+    { id: 1, title: "Learn React components", completed: false },
+    { id: 2, title: "Build task manager", completed: false },
+  ];
+
+  return (
+    <main>
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id}>{task.title}</li>
+        ))}
+      </ul>
+    </main>
+  )
+}
+
+export default App
+```
+
++ `tasks.map(...)` loops through every item in the `tasks` array.
++ `(task) => (...)` is an arrow function. Each item in the array is temporarily called `task`.
++ `<li key={task.id}>` creats one list item for each task.
++ `key={task.id}` gives React a unique identifier for each list item.
++ `{task.title}` displays the task's title.

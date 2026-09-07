@@ -1,8 +1,17 @@
 function App() {
+  const tasks = [
+    { id: 1, title: "Learn React components", completed: false },
+    { id: 2, title: "Build task manager", completed: false },
+  ];
+
   return (
-    <>
-      <h1>Hello, World</h1>
-    </>
+    <main>
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id}>{task.title}</li>
+        ))}
+      </ul>
+    </main>
   )
 }
 
